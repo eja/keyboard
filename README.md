@@ -2,7 +2,7 @@
 
 A super simple, privacy-first input method for Android, built to replace default vendor keyboards that often track keystrokes, require unnecessary network permissions, or consume heavy resources.
 
-The entire project is **less than 500 lines of code**, making it extremely lightweight and easy to audit for security.
+The entire project is **less than 150 lines of code**, making it extremely lightweight and easy to audit for security.
 
 ## Privacy First
 
@@ -10,7 +10,7 @@ This keyboard is designed with a single goal: **Privacy**.
 
 *   **No Internet Access:** The app **does not** request the `android.permission.INTERNET` permission. It physically cannot send data to the cloud.
 *   **No Analytics:** Zero tracking, zero telemetry.
-*   **Auditable:** With a codebase under 500 LOC, read the source code in minutes to verify exactly what it does.
+*   **Auditable:** With a codebase under 150 LOC, read the source code in minutes to verify exactly what it does.
 
 ## Features
 
