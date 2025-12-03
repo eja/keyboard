@@ -1,4 +1,4 @@
-# eja Keyboard
+# Keyboard
 
 A super simple, privacy-first input method for Android, built to replace default vendor keyboards that often track keystrokes, require unnecessary network permissions, or consume heavy resources.
 
