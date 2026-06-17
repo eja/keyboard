@@ -30,6 +30,32 @@ class Keyboard : InputMethodService(), KeyboardView.OnKeyboardActionListener {
         return kv
     }
 
+    private fun updateDynamicKeys() {
+        for (key in qwertyKeyboard.keys) {
+            val codes = key.codes ?: continue
+            if (codes.isEmpty()) continue
+
+            when (codes[0]) {
+                47, 64 -> { // / @
+                    key.codes[0] = if (isCaps) 64 else 47
+                    key.label = if (isCaps) "@" else "/"
+                }
+                63, 39 -> { // ? '
+                    key.codes[0] = if (isCaps) 39 else 63
+                    key.label = if (isCaps) "'" else "?"
+                }
+                46, 58 -> { // . :
+                    key.codes[0] = if (isCaps) 58 else 46
+                    key.label = if (isCaps) ":" else "."
+                }
+                44, 59 -> { // , ;
+                    key.codes[0] = if (isCaps) 59 else 44
+                    key.label = if (isCaps) ";" else ","
+                }
+            }
+        }
+    }
+
     override fun onKey(primaryCode: Int, keyCodes: IntArray?) {
         val ic = currentInputConnection ?: return
         when (primaryCode) {
@@ -38,6 +64,10 @@ class Keyboard : InputMethodService(), KeyboardView.OnKeyboardActionListener {
             Keyboard.KEYCODE_SHIFT -> {
                 isCaps = !isCaps
                 qwertyKeyboard.isShifted = isCaps
+                accentsKeyboard.isShifted = isCaps
+
+                updateDynamicKeys()
+
                 kv.invalidateAllKeys()
             }
 
@@ -51,10 +81,15 @@ class Keyboard : InputMethodService(), KeyboardView.OnKeyboardActionListener {
             }
 
             Keyboard.KEYCODE_MODE_CHANGE -> {
-                kv.keyboard = if (kv.keyboard == qwertyKeyboard) symbolKeyboard else qwertyKeyboard
+                val nextKeyboard = if (kv.keyboard == qwertyKeyboard) symbolKeyboard else qwertyKeyboard
+                nextKeyboard.isShifted = isCaps
+                kv.keyboard = nextKeyboard
             }
 
-            -10 -> kv.keyboard = accentsKeyboard
+            -10 -> {
+                accentsKeyboard.isShifted = isCaps
+                kv.keyboard = accentsKeyboard
+            }
 
             9 -> ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_TAB))
             19 -> ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_UP))
@@ -70,7 +105,7 @@ class Keyboard : InputMethodService(), KeyboardView.OnKeyboardActionListener {
             else -> {
                 if (primaryCode > 0) {
                     var code = primaryCode.toChar()
-                    if (Character.isLetter(code) && isCaps && kv.keyboard == qwertyKeyboard) {
+                    if (Character.isLetter(code) && isCaps && (kv.keyboard == qwertyKeyboard || kv.keyboard == accentsKeyboard)) {
                         code = code.uppercaseChar()
                     }
                     ic.commitText(code.toString(), 1)

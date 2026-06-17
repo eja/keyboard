@@ -46,11 +46,11 @@
         <Key android:codes="-10" android:keyLabel="àèì"/>
         <Key android:codes="58" android:keyLabel=":"/>
         <Key android:codes="59" android:keyLabel=";"/>
-        <Key android:codes="64" android:keyLabel="@"/>
         <Key android:codes="35" android:keyLabel="#"/>
         <Key android:codes="60" android:keyLabel="&lt;"/>
         <Key android:codes="62" android:keyLabel="&gt;"/>
-        <Key android:codes="32" android:keyLabel="&#x1680;"/>
-        <Key android:codes="-5" android:keyLabel="&#x232B;" android:isRepeatable="true"/>
+        <Key android:codes="167" android:keyLabel="§"/>
+        <Key android:codes="64" android:keyLabel="@"/>
+        <Key android:codes="10" android:keyLabel="&#x21B5;"/>
     </Row>
 </Keyboard>

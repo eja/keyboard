@@ -47,7 +47,7 @@
         <Key android:codes="176" android:keyLabel="°"/>
         <Key android:codes="96" android:keyLabel="`"/>
         <Key android:codes="39" android:keyLabel="'"/>
-        <Key android:codes="32" android:keyLabel="&#x1680;"/>
-        <Key android:codes="-5" android:keyLabel="&#x232B;" android:isRepeatable="true"/>
+        <Key android:codes="180" android:keyLabel="´"/>
+        <Key android:codes="-1" android:keyLabel="&#8682;" android:isModifier="true" android:isSticky="true"/>
     </Row>
 </Keyboard>
